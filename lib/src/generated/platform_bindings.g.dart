@@ -169,16 +169,20 @@ class LocationWire {
   LocationWire({
     required this.latitude,
     required this.longitude,
+    this.timestampMillis,
   });
 
   double latitude;
 
   double longitude;
 
+  int? timestampMillis;
+
   List<Object?> _toList() {
     return <Object?>[
       latitude,
       longitude,
+      timestampMillis,
     ];
   }
 
@@ -191,6 +195,7 @@ class LocationWire {
     return LocationWire(
       latitude: result[0]! as double,
       longitude: result[1]! as double,
+      timestampMillis: result[2] as int?,
     );
   }
 
@@ -204,7 +209,8 @@ class LocationWire {
       return true;
     }
     return _deepEquals(latitude, other.latitude) &&
-        _deepEquals(longitude, other.longitude);
+        _deepEquals(longitude, other.longitude) &&
+        _deepEquals(timestampMillis, other.timestampMillis);
   }
 
   @override

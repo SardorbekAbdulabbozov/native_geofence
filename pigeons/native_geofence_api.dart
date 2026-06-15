@@ -28,8 +28,13 @@ enum GeofenceEvent {
 class LocationWire {
   final double latitude;
   final double longitude;
+  final int? timestampMillis;
 
-  const LocationWire({required this.latitude, required this.longitude});
+  const LocationWire({
+    required this.latitude,
+    required this.longitude,
+    this.timestampMillis,
+  });
 }
 
 class IosGeofenceSettingsWire {

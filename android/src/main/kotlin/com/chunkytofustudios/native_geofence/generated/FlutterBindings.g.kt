@@ -271,20 +271,23 @@ enum class NativeGeofenceErrorCode(val raw: Int) {
 /** Generated class from Pigeon that represents data sent in messages. */
 data class LocationWire (
   val latitude: Double,
-  val longitude: Double
+  val longitude: Double,
+  val timestampMillis: Long? = null
 )
  {
   companion object {
     fun fromList(pigeonVar_list: List<Any?>): LocationWire {
       val latitude = pigeonVar_list[0] as Double
       val longitude = pigeonVar_list[1] as Double
-      return LocationWire(latitude, longitude)
+      val timestampMillis = pigeonVar_list[2] as Long?
+      return LocationWire(latitude, longitude, timestampMillis)
     }
   }
   fun toList(): List<Any?> {
     return listOf(
       latitude,
       longitude,
+      timestampMillis,
     )
   }
   override fun equals(other: Any?): Boolean {
@@ -295,13 +298,14 @@ data class LocationWire (
       return true
     }
     val other = other as LocationWire
-    return FlutterBindingsPigeonUtils.deepEquals(this.latitude, other.latitude) && FlutterBindingsPigeonUtils.deepEquals(this.longitude, other.longitude)
+    return FlutterBindingsPigeonUtils.deepEquals(this.latitude, other.latitude) && FlutterBindingsPigeonUtils.deepEquals(this.longitude, other.longitude) && FlutterBindingsPigeonUtils.deepEquals(this.timestampMillis, other.timestampMillis)
   }
 
   override fun hashCode(): Int {
     var result = javaClass.hashCode()
     result = 31 * result + FlutterBindingsPigeonUtils.deepHash(this.latitude)
     result = 31 * result + FlutterBindingsPigeonUtils.deepHash(this.longitude)
+    result = 31 * result + FlutterBindingsPigeonUtils.deepHash(this.timestampMillis)
     return result
   }
 }

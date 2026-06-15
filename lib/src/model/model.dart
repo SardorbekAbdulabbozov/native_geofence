@@ -7,8 +7,17 @@ import 'package:native_geofence/src/generated/platform_bindings.g.dart';
 class Location {
   final double latitude;
   final double longitude;
+  final int? timestampMillis;
 
-  const Location({required this.latitude, required this.longitude});
+  const Location({
+    required this.latitude,
+    required this.longitude,
+    this.timestampMillis,
+  });
+
+  DateTime? get dateTime => timestampMillis != null
+      ? DateTime.fromMillisecondsSinceEpoch(timestampMillis!)
+      : null;
 
   /// Whether this location instance is valid.
   bool get isValid =>
