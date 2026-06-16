@@ -231,35 +231,40 @@ enum NativeGeofenceErrorCode: Int {
 struct LocationWire: Hashable {
   var latitude: Double
   var longitude: Double
+  var timestampMillis: Int64? = nil
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ pigeonVar_list: [Any?]) -> LocationWire? {
     let latitude = pigeonVar_list[0] as! Double
     let longitude = pigeonVar_list[1] as! Double
+    let timestampMillis: Int64? = nilOrValue(pigeonVar_list[2])
 
     return LocationWire(
       latitude: latitude,
-      longitude: longitude
+      longitude: longitude,
+      timestampMillis: timestampMillis
     )
   }
   func toList() -> [Any?] {
     return [
       latitude,
       longitude,
+      timestampMillis,
     ]
   }
   static func == (lhs: LocationWire, rhs: LocationWire) -> Bool {
     if Swift.type(of: lhs) != Swift.type(of: rhs) {
       return false
     }
-    return deepEqualsFlutterBindings(lhs.latitude, rhs.latitude) && deepEqualsFlutterBindings(lhs.longitude, rhs.longitude)
+    return deepEqualsFlutterBindings(lhs.latitude, rhs.latitude) && deepEqualsFlutterBindings(lhs.longitude, rhs.longitude) && deepEqualsFlutterBindings(lhs.timestampMillis, rhs.timestampMillis)
   }
 
   func hash(into hasher: inout Hasher) {
     hasher.combine("LocationWire")
     deepHashFlutterBindings(value: latitude, hasher: &hasher)
     deepHashFlutterBindings(value: longitude, hasher: &hasher)
+    deepHashFlutterBindings(value: timestampMillis, hasher: &hasher)
   }
 }
 
