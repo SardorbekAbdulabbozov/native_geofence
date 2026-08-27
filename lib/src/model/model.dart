@@ -7,17 +7,11 @@ import 'package:native_geofence/src/generated/platform_bindings.g.dart';
 class Location {
   final double latitude;
   final double longitude;
-  final int? timestampMillis;
 
   const Location({
     required this.latitude,
     required this.longitude,
-    this.timestampMillis,
   });
-
-  DateTime? get dateTime => timestampMillis != null
-      ? DateTime.fromMillisecondsSinceEpoch(timestampMillis!)
-      : null;
 
   /// Whether this location instance is valid.
   bool get isValid =>
@@ -208,17 +202,31 @@ class GeofenceCallbackParams {
   /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/locationmanager(_:diddeterminestate:for:)
   final Location? location;
 
+  /// The timestamp of when the geofence event was triggered, in milliseconds
+  /// since epoch.
+  ///
+  /// Only available on Android. Always null on iOS because the OS does not
+  /// provide trigger timing information. See:
+  /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/locationmanager(_:diddeterminestate:for:)
+  final int? triggerTimestampMillis;
+
   const GeofenceCallbackParams({
     required this.geofences,
     required this.event,
     required this.location,
+    required this.triggerTimestampMillis,
   });
+
+  DateTime? get triggeredAt => triggerTimestampMillis != null
+      ? DateTime.fromMillisecondsSinceEpoch(triggerTimestampMillis!)
+      : null;
 
   @override
   String toString() {
     return 'GeofenceCallbackParams('
         'geofences: [${geofences.map((e) => e.toString()).join(', ')}], '
         'event: ${event.name}, '
-        'location: $location)';
+        'location: $location, '
+        'triggeredAt: $triggeredAt)';
   }
 }
