@@ -231,40 +231,35 @@ enum NativeGeofenceErrorCode: Int {
 struct LocationWire: Hashable {
   var latitude: Double
   var longitude: Double
-  var timestampMillis: Int64? = nil
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ pigeonVar_list: [Any?]) -> LocationWire? {
     let latitude = pigeonVar_list[0] as! Double
     let longitude = pigeonVar_list[1] as! Double
-    let timestampMillis: Int64? = nilOrValue(pigeonVar_list[2])
 
     return LocationWire(
       latitude: latitude,
-      longitude: longitude,
-      timestampMillis: timestampMillis
+      longitude: longitude
     )
   }
   func toList() -> [Any?] {
     return [
       latitude,
       longitude,
-      timestampMillis,
     ]
   }
   static func == (lhs: LocationWire, rhs: LocationWire) -> Bool {
     if Swift.type(of: lhs) != Swift.type(of: rhs) {
       return false
     }
-    return deepEqualsFlutterBindings(lhs.latitude, rhs.latitude) && deepEqualsFlutterBindings(lhs.longitude, rhs.longitude) && deepEqualsFlutterBindings(lhs.timestampMillis, rhs.timestampMillis)
+    return deepEqualsFlutterBindings(lhs.latitude, rhs.latitude) && deepEqualsFlutterBindings(lhs.longitude, rhs.longitude)
   }
 
   func hash(into hasher: inout Hasher) {
     hasher.combine("LocationWire")
     deepHashFlutterBindings(value: latitude, hasher: &hasher)
     deepHashFlutterBindings(value: longitude, hasher: &hasher)
-    deepHashFlutterBindings(value: timestampMillis, hasher: &hasher)
   }
 }
 
@@ -463,6 +458,7 @@ struct GeofenceCallbackParamsWire: Hashable {
   var event: GeofenceEvent
   var location: LocationWire? = nil
   var callbackHandle: Int64
+  var triggerTimestampMillis: Int64? = nil
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
@@ -471,12 +467,14 @@ struct GeofenceCallbackParamsWire: Hashable {
     let event = pigeonVar_list[1] as! GeofenceEvent
     let location: LocationWire? = nilOrValue(pigeonVar_list[2])
     let callbackHandle = pigeonVar_list[3] as! Int64
+    let triggerTimestampMillis: Int64? = nilOrValue(pigeonVar_list[4])
 
     return GeofenceCallbackParamsWire(
       geofences: geofences,
       event: event,
       location: location,
-      callbackHandle: callbackHandle
+      callbackHandle: callbackHandle,
+      triggerTimestampMillis: triggerTimestampMillis
     )
   }
   func toList() -> [Any?] {
@@ -485,13 +483,14 @@ struct GeofenceCallbackParamsWire: Hashable {
       event,
       location,
       callbackHandle,
+      triggerTimestampMillis,
     ]
   }
   static func == (lhs: GeofenceCallbackParamsWire, rhs: GeofenceCallbackParamsWire) -> Bool {
     if Swift.type(of: lhs) != Swift.type(of: rhs) {
       return false
     }
-    return deepEqualsFlutterBindings(lhs.geofences, rhs.geofences) && deepEqualsFlutterBindings(lhs.event, rhs.event) && deepEqualsFlutterBindings(lhs.location, rhs.location) && deepEqualsFlutterBindings(lhs.callbackHandle, rhs.callbackHandle)
+    return deepEqualsFlutterBindings(lhs.geofences, rhs.geofences) && deepEqualsFlutterBindings(lhs.event, rhs.event) && deepEqualsFlutterBindings(lhs.location, rhs.location) && deepEqualsFlutterBindings(lhs.callbackHandle, rhs.callbackHandle) && deepEqualsFlutterBindings(lhs.triggerTimestampMillis, rhs.triggerTimestampMillis)
   }
 
   func hash(into hasher: inout Hasher) {
@@ -500,6 +499,7 @@ struct GeofenceCallbackParamsWire: Hashable {
     deepHashFlutterBindings(value: event, hasher: &hasher)
     deepHashFlutterBindings(value: location, hasher: &hasher)
     deepHashFlutterBindings(value: callbackHandle, hasher: &hasher)
+    deepHashFlutterBindings(value: triggerTimestampMillis, hasher: &hasher)
   }
 }
 

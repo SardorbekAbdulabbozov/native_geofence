@@ -169,20 +169,16 @@ class LocationWire {
   LocationWire({
     required this.latitude,
     required this.longitude,
-    this.timestampMillis,
   });
 
   double latitude;
 
   double longitude;
 
-  int? timestampMillis;
-
   List<Object?> _toList() {
     return <Object?>[
       latitude,
       longitude,
-      timestampMillis,
     ];
   }
 
@@ -195,7 +191,6 @@ class LocationWire {
     return LocationWire(
       latitude: result[0]! as double,
       longitude: result[1]! as double,
-      timestampMillis: result[2] as int?,
     );
   }
 
@@ -209,8 +204,7 @@ class LocationWire {
       return true;
     }
     return _deepEquals(latitude, other.latitude) &&
-        _deepEquals(longitude, other.longitude) &&
-        _deepEquals(timestampMillis, other.timestampMillis);
+        _deepEquals(longitude, other.longitude);
   }
 
   @override
@@ -468,6 +462,7 @@ class GeofenceCallbackParamsWire {
     required this.event,
     this.location,
     required this.callbackHandle,
+    this.triggerTimestampMillis,
   });
 
   List<ActiveGeofenceWire> geofences;
@@ -478,12 +473,15 @@ class GeofenceCallbackParamsWire {
 
   int callbackHandle;
 
+  int? triggerTimestampMillis;
+
   List<Object?> _toList() {
     return <Object?>[
       geofences,
       event,
       location,
       callbackHandle,
+      triggerTimestampMillis,
     ];
   }
 
@@ -498,6 +496,7 @@ class GeofenceCallbackParamsWire {
       event: result[1]! as GeofenceEvent,
       location: result[2] as LocationWire?,
       callbackHandle: result[3]! as int,
+      triggerTimestampMillis: result[4] as int?,
     );
   }
 
@@ -514,7 +513,8 @@ class GeofenceCallbackParamsWire {
     return _deepEquals(geofences, other.geofences) &&
         _deepEquals(event, other.event) &&
         _deepEquals(location, other.location) &&
-        _deepEquals(callbackHandle, other.callbackHandle);
+        _deepEquals(callbackHandle, other.callbackHandle) &&
+        _deepEquals(triggerTimestampMillis, other.triggerTimestampMillis);
   }
 
   @override
