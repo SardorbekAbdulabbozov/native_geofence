@@ -7,19 +7,14 @@ import kotlinx.serialization.Serializable
 class LocationStorage(
     private val latitude: Double,
     private val longitude: Double,
-    private val timestampMillis: Long? = null,
 ) {
     companion object {
         fun fromWire(e: LocationWire): LocationStorage {
-            return LocationStorage(e.latitude, e.longitude, e.timestampMillis)
+            return LocationStorage(e.latitude, e.longitude)
         }
     }
 
     fun toWire(): LocationWire {
-        return LocationWire(
-            latitude,
-            longitude,
-            timestampMillis,
-        )
+        return LocationWire(latitude, longitude)
     }
 }

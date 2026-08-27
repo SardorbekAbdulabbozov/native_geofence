@@ -6,11 +6,7 @@ import com.chunkytofustudios.native_geofence.generated.LocationWire
 class LocationWires {
     companion object {
         fun fromLocation(e: Location): LocationWire {
-            return LocationWire(
-                e.latitude,
-                e.longitude,
-                e.time,
-            )
+            return LocationWire(e.latitude, e.longitude)
         }
     }
 }
