@@ -6,9 +6,9 @@ import 'package:pigeon/pigeon.dart';
 @ConfigurePigeon(PigeonOptions(
   dartOut: 'lib/src/generated/platform_bindings.g.dart',
   dartPackageName: 'native_geofence',
+  // Must match the podspec source_files glob. See: a714099 (SPM migration).
   swiftOut:
       'ios/native_geofence/Sources/native_geofence/Generated/FlutterBindings.g.swift',
-  // swiftOut: 'ios/Classes/Generated/FlutterBindings.g.swift',
   kotlinOut:
       'android/src/main/kotlin/com/chunkytofustudios/native_geofence/generated/FlutterBindings.g.kt',
   kotlinOptions:
@@ -30,12 +30,10 @@ enum GeofenceEvent {
 class LocationWire {
   final double latitude;
   final double longitude;
-  final int? timestampMillis;
 
   const LocationWire({
     required this.latitude,
     required this.longitude,
-    this.timestampMillis,
   });
 }
 
@@ -103,12 +101,14 @@ class GeofenceCallbackParamsWire {
   final GeofenceEvent event;
   final LocationWire? location;
   final int callbackHandle;
+  final int? triggerTimestampMillis;
 
   const GeofenceCallbackParamsWire({
     required this.geofences,
     required this.event,
     required this.location,
     required this.callbackHandle,
+    required this.triggerTimestampMillis,
   });
 }
 

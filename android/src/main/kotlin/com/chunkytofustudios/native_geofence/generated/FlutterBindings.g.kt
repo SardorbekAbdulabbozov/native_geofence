@@ -271,23 +271,20 @@ enum class NativeGeofenceErrorCode(val raw: Int) {
 /** Generated class from Pigeon that represents data sent in messages. */
 data class LocationWire (
   val latitude: Double,
-  val longitude: Double,
-  val timestampMillis: Long? = null
+  val longitude: Double
 )
  {
   companion object {
     fun fromList(pigeonVar_list: List<Any?>): LocationWire {
       val latitude = pigeonVar_list[0] as Double
       val longitude = pigeonVar_list[1] as Double
-      val timestampMillis = pigeonVar_list[2] as Long?
-      return LocationWire(latitude, longitude, timestampMillis)
+      return LocationWire(latitude, longitude)
     }
   }
   fun toList(): List<Any?> {
     return listOf(
       latitude,
       longitude,
-      timestampMillis,
     )
   }
   override fun equals(other: Any?): Boolean {
@@ -298,14 +295,13 @@ data class LocationWire (
       return true
     }
     val other = other as LocationWire
-    return FlutterBindingsPigeonUtils.deepEquals(this.latitude, other.latitude) && FlutterBindingsPigeonUtils.deepEquals(this.longitude, other.longitude) && FlutterBindingsPigeonUtils.deepEquals(this.timestampMillis, other.timestampMillis)
+    return FlutterBindingsPigeonUtils.deepEquals(this.latitude, other.latitude) && FlutterBindingsPigeonUtils.deepEquals(this.longitude, other.longitude)
   }
 
   override fun hashCode(): Int {
     var result = javaClass.hashCode()
     result = 31 * result + FlutterBindingsPigeonUtils.deepHash(this.latitude)
     result = 31 * result + FlutterBindingsPigeonUtils.deepHash(this.longitude)
-    result = 31 * result + FlutterBindingsPigeonUtils.deepHash(this.timestampMillis)
     return result
   }
 }
@@ -503,7 +499,8 @@ data class GeofenceCallbackParamsWire (
   val geofences: List<ActiveGeofenceWire>,
   val event: GeofenceEvent,
   val location: LocationWire? = null,
-  val callbackHandle: Long
+  val callbackHandle: Long,
+  val triggerTimestampMillis: Long? = null
 )
  {
   companion object {
@@ -512,7 +509,8 @@ data class GeofenceCallbackParamsWire (
       val event = pigeonVar_list[1] as GeofenceEvent
       val location = pigeonVar_list[2] as LocationWire?
       val callbackHandle = pigeonVar_list[3] as Long
-      return GeofenceCallbackParamsWire(geofences, event, location, callbackHandle)
+      val triggerTimestampMillis = pigeonVar_list[4] as Long?
+      return GeofenceCallbackParamsWire(geofences, event, location, callbackHandle, triggerTimestampMillis)
     }
   }
   fun toList(): List<Any?> {
@@ -521,6 +519,7 @@ data class GeofenceCallbackParamsWire (
       event,
       location,
       callbackHandle,
+      triggerTimestampMillis,
     )
   }
   override fun equals(other: Any?): Boolean {
@@ -531,7 +530,7 @@ data class GeofenceCallbackParamsWire (
       return true
     }
     val other = other as GeofenceCallbackParamsWire
-    return FlutterBindingsPigeonUtils.deepEquals(this.geofences, other.geofences) && FlutterBindingsPigeonUtils.deepEquals(this.event, other.event) && FlutterBindingsPigeonUtils.deepEquals(this.location, other.location) && FlutterBindingsPigeonUtils.deepEquals(this.callbackHandle, other.callbackHandle)
+    return FlutterBindingsPigeonUtils.deepEquals(this.geofences, other.geofences) && FlutterBindingsPigeonUtils.deepEquals(this.event, other.event) && FlutterBindingsPigeonUtils.deepEquals(this.location, other.location) && FlutterBindingsPigeonUtils.deepEquals(this.callbackHandle, other.callbackHandle) && FlutterBindingsPigeonUtils.deepEquals(this.triggerTimestampMillis, other.triggerTimestampMillis)
   }
 
   override fun hashCode(): Int {
@@ -540,6 +539,7 @@ data class GeofenceCallbackParamsWire (
     result = 31 * result + FlutterBindingsPigeonUtils.deepHash(this.event)
     result = 31 * result + FlutterBindingsPigeonUtils.deepHash(this.location)
     result = 31 * result + FlutterBindingsPigeonUtils.deepHash(this.callbackHandle)
+    result = 31 * result + FlutterBindingsPigeonUtils.deepHash(this.triggerTimestampMillis)
     return result
   }
 }

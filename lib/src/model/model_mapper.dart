@@ -9,7 +9,6 @@ extension LocationMapper on Location {
     return LocationWire(
       latitude: latitude,
       longitude: longitude,
-      timestampMillis: timestampMillis,
     );
   }
 }
@@ -19,7 +18,6 @@ extension LocationWireMapper on LocationWire {
     return Location(
       latitude: latitude,
       longitude: longitude,
-      timestampMillis: timestampMillis,
     );
   }
 }
@@ -120,6 +118,7 @@ extension GeofenceCallbackParamsWireMapper on GeofenceCallbackParamsWire {
       geofences: geofences.map((e) => e.fromWire()).toList(),
       event: event,
       location: location?.fromWire(),
+      triggerTimestampMillis: triggerTimestampMillis,
     );
   }
 }

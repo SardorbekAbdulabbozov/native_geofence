@@ -9,7 +9,6 @@ class LocationWires {
             return LocationWire(
                 e.latitude,
                 e.longitude,
-                e.time,
             )
         }
     }

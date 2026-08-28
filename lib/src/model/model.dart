@@ -208,17 +208,31 @@ class GeofenceCallbackParams {
   /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/locationmanager(_:diddeterminestate:for:)
   final Location? location;
 
+  /// The timestamp of when the geofence event was triggered, in milliseconds
+  /// since epoch.
+  ///
+  /// Only available on Android. Always null on iOS because the OS does not
+  /// provide trigger timing information. See:
+  /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/locationmanager(_:diddeterminestate:for:)
+  final int? triggerTimestampMillis;
+
   const GeofenceCallbackParams({
     required this.geofences,
     required this.event,
     required this.location,
+    required this.triggerTimestampMillis,
   });
+
+  DateTime? get triggeredAt => triggerTimestampMillis != null
+      ? DateTime.fromMillisecondsSinceEpoch(triggerTimestampMillis!)
+      : null;
 
   @override
   String toString() {
     return 'GeofenceCallbackParams('
         'geofences: [${geofences.map((e) => e.toString()).join(', ')}], '
         'event: ${event.name}, '
-        'location: $location)';
+        'location: $location, '
+        'triggeredAt: $triggeredAt)';
   }
 }
