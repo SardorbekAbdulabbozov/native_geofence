@@ -9,6 +9,7 @@ class GeofenceCallbackParamsStorage(
     private val geofences: List<ActiveGeofenceStorage>,
     private val event: GeofenceEvent,
     private val location: LocationStorage? = null,
+    private val triggerTimestampMillis: Long? = null,
     private val callbackHandle: Long
     private val triggerTimestampMillis: Long? = null,
 ) {
@@ -18,6 +19,7 @@ class GeofenceCallbackParamsStorage(
                 e.geofences.map { ActiveGeofenceStorage.fromWire(it) }.toList(),
                 e.event,
                 e.location?.let { LocationStorage.fromWire(it) },
+                e.triggerTimestampMillis,
                 e.callbackHandle,
                 e.triggerTimestampMillis,
             )
@@ -29,6 +31,7 @@ class GeofenceCallbackParamsStorage(
             geofences.map { it.toWire() }.toList(),
             event,
             location?.toWire(),
+            triggerTimestampMillis,
             callbackHandle,
             triggerTimestampMillis,
         )
